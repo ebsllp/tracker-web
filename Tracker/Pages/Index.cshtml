@@ -1,0 +1,92 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@section Scripts{
+<script type="text/javascript">
+
+    $(function () {
+        loadYearGroups();
+    });
+
+    function loadYearGroups() {
+        $("#subjectContainer").hide();
+        $.ajax({
+            url: '/?handler=YearGroups'
+        }).done(function (result) {
+            let l = result.length;
+            let i = 0;
+
+            $("#yearGroups tbody").html("");
+            while (i < l) {
+                $("#yearGroups tbody").append("<tr><td><input type='button' onclick='loadSubjects(" + result[i].oid + ")' value='Year " + result[i].code + "' class='yearGroupsButton btn btn-primary selectButtons' /></td></tr>");
+                i++;
+            }
+              $("#yearGroupContainer").show();
+        });
+    }
+    function loadSubjects(_yearGroupId) {
+        $.ajax({
+            url: '/?handler=Subjects',
+            data: {
+                yearGroupId: _yearGroupId
+            }
+        }).done(function (result) {
+            let l = result.length;
+            let i = 0;
+
+            $("#yearGroupContainer").hide();
+            $("#subjects tbody").html("");
+            while (i < l) {
+                $("#subjects tbody").append("<tr><td><input type='button' value='" + result[i].displayName + "' class='subjectButtons btn btn-primary selectButtons' /></td></tr>");
+                i++;
+            }
+            $("#subjects tbody").append("<tr><td><input type='button' value='Cancel' onclick='loadYearGroups()' class='subjectButtons btn btn-warning selectButtons' /></td></tr>");
+            $("#subjectContainer").show();
+        });
+    }
+</script>
+<style>
+    .selectButtons {
+        width: 150px;
+        height: 40px;
+        padding: 10px;
+        margin: 5px;
+    }
+</style>
+}<div class="container col-lg-12" style="text-align:center">
+    <div id="yearGroupContainer">
+        <h2>Select Year Group</h2>
+        <br />
+        <div id="yearGroups" class="row">
+            <table class="table yearGroupTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="subjectContainer" style="display:none">
+        <h2>Select Subject</h2>
+        <br />
+        <div id="subjects" class="row">
+            <table class="table subjectTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="pupilContainer" style="display:none">
+        <h2>Pupils</h2>
+        <br />
+        <div id="pupils" class="row">
+            <table class="table pupilTable">
+                <th data-sortable="true" data-field="pupilName">Pupil</th>
+                <th data-sortable="true" data-field="id">Item ID</th>
+                <th data-sortable="true" data-field="id">Item ID</th>
+                <th data-sortable="true" data-field="id">Item ID</th>
+                <th data-sortable="true" data-field="id">Item ID</th>
+                <th data-sortable="true" data-field="id">Item ID</th>
+            </table>
+        </div>
+    </div>
+</div>

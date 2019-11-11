@@ -14,5 +14,13 @@ namespace Tracker.Pages
         {
             return new JsonResult(await Data.Database.Subjects(yearGroupId));
         }
+        public async Task<JsonResult> OnGetClassId(int yearGroupId, int subjectId)
+        {
+            return new JsonResult(await Data.Database.ClassId(yearGroupId, subjectId));
+        }
+        public async Task<JsonResult> OnGetTrackerPupils(string yearGroupCode, int classId)
+        {
+            return new JsonResult(await Data.Database.TrackerPupils(yearGroupCode, classId));
+        }
     }
 }

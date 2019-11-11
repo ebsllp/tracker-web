@@ -6,6 +6,10 @@
 
 @section Scripts{
 <script type="text/javascript">
+    let yearGroupId = 0;
+    let yearGroupCode = '';
+    let subjectId = 0;
+    let classId = 0;
 
     $(function () {
         loadYearGroups();
@@ -21,17 +25,20 @@
 
             $("#yearGroups tbody").html("");
             while (i < l) {
-                $("#yearGroups tbody").append("<tr><td><input type='button' onclick='loadSubjects(" + result[i].oid + ")' value='Year " + result[i].code + "' class='yearGroupsButton btn btn-primary selectButtons' /></td></tr>");
+                $("#yearGroups tbody").append("<tr><td><input type='button' id='" + result[i].oid + "' code='" + result[i].code + "' onclick='loadSubjects(this)' value='Year " + result[i].code + "' class='yearGroupsButton btn btn-primary selectButtons' /></td></tr>");
                 i++;
             }
-              $("#yearGroupContainer").show();
+            $("#yearGroupContainer").show();
         });
     }
-    function loadSubjects(_yearGroupId) {
+    function loadSubjects(row) {
+        yearGroupId = $(row).attr("id");
+        yearGroupCode = $(row).attr("code");
+
         $.ajax({
             url: '/?handler=Subjects',
             data: {
-                yearGroupId: _yearGroupId
+                yearGroupId: yearGroupId
             }
         }).done(function (result) {
             let l = result.length;
@@ -40,11 +47,38 @@
             $("#yearGroupContainer").hide();
             $("#subjects tbody").html("");
             while (i < l) {
-                $("#subjects tbody").append("<tr><td><input type='button' value='" + result[i].displayName + "' class='subjectButtons btn btn-primary selectButtons' /></td></tr>");
+                $("#subjects tbody").append("<tr><td><input type='button' onclick='loadPupils(" + result[i].subjectId + ")' value='" + result[i].displayName + "' class='subjectButtons btn btn-primary selectButtons' /></td></tr>");
                 i++;
             }
             $("#subjects tbody").append("<tr><td><input type='button' value='Cancel' onclick='loadYearGroups()' class='subjectButtons btn btn-warning selectButtons' /></td></tr>");
             $("#subjectContainer").show();
+        });
+    }
+    function loadPupils(_subjectId) {
+        subjectId = _subjectId;
+
+        $.ajax({
+            url: '/?handler=ClassId',
+            data: {
+                yearGroupId: yearGroupId,
+                subjectId: subjectId
+            }
+        }).done(function (result) {
+            classId = result;
+
+            $.ajax({
+                url: '/?handler=TrackerPupils',
+                data: {
+                    yearGroupCode: yearGroupCode,
+                    classId: classId
+                }
+            }).done(function (data) {
+                $('.pupilTable').bootstrapTable({
+                    data: data
+                });
+                $("#subjectContainer").hide();
+                $("#pupilsContainer").show();
+            });
         });
     }
 </script>
@@ -75,17 +109,19 @@
             </table>
         </div>
     </div>
-    <div id="pupilContainer" style="display:none">
+    <div id="pupilsContainer" style="display:none">
         <h2>Pupils</h2>
         <br />
         <div id="pupils" class="row">
             <table class="table pupilTable">
-                <th data-sortable="true" data-field="pupilName">Pupil</th>
-                <th data-sortable="true" data-field="id">Item ID</th>
-                <th data-sortable="true" data-field="id">Item ID</th>
-                <th data-sortable="true" data-field="id">Item ID</th>
-                <th data-sortable="true" data-field="id">Item ID</th>
-                <th data-sortable="true" data-field="id">Item ID</th>
+                <thead>
+                    <tr>
+                        <th data-sortable="true" data-field="pupilName">Pupil</th>
+                        <th data-sortable="true" data-field="formTeacher">Teacher</th>
+                        <th data-sortable="true" data-field="monthsOld">Months Old</th>
+                        <th data-sortable="true" data-field="endOfLastYearStatus">End of Last Year</th>
+                    </tr>
+                </thead>
             </table>
         </div>
     </div>

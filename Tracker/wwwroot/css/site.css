@@ -35,3 +35,18 @@ body {
         display: none;
     }
 }
+
+html, body {
+    height: 100%;
+}
+
+.selectButtons {
+    width: 150px;
+    height: 40px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.container {
+    height: 99%;
+}

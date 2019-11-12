@@ -1,0 +1,53 @@
+﻿@page
+@model YearGroupsModel
+@{
+    ViewData["Title"] = "Year Groups page";
+}
+
+@section Scripts{
+    <script src="~/js/YearGroups.js"></script>
+}
+<style>
+    .objectives {
+        width: 150px;
+    }
+</style>
+<div class="container col-lg-12" style="        text-align: center">
+    <div id="yearGroupContainer" style="        display: none" class="container">
+        <h2>Select Year Group</h2>
+        <br />
+        <div id="yearGroups" class="row">
+            <table class="table yearGroupTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="subjectContainer" style="        display: none" class="container">
+        <h2>Select Subject</h2>
+        <br />
+        <div id="subjects" class="row">
+            <table class="table subjectTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="pupilsContainer" style="        display: none" class="container">
+        <h2>Pupils</h2>
+        <br />
+        <div id="pupils" class="row">
+            <table class="table pupilTable">
+                <thead>
+                    <tr>
+                        <th data-sortable="true" data-field="pupilName">Pupil</th>
+                        <th data-sortable="true" data-field="formTeacher">Teacher</th>
+                        <th data-sortable="true" data-field="monthsOld">Months Old</th>
+                        <th data-sortable="true" data-field="endOfLastYearStatus">End of Last Year</th>
+                        <th data-sortable="true" data-field="autumnStatus" data-formatter="yearGroups.objectivesDropdown">Summer</th>
+                        <th data-sortable="true" data-field="springStatus" data-formatter="yearGroups.objectivesDropdown">Spring</th>
+                        <th data-sortable="true" data-field="summerStatus" data-formatter="yearGroups.objectivesDropdown">Summer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

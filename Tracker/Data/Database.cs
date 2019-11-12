@@ -74,5 +74,9 @@ namespace Tracker.Data
             pars.Add(new SqlParameter("class_id", classId));
             return await Select("sp_TrackerPupil_Select", pars.ToArray());
         }
+        public async static Task<DataTable> Objectives()
+        {
+            return await Select("sp_Objectives_Select");
+        }
     }
 }

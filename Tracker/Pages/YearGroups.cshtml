@@ -1,7 +1,7 @@
-﻿@page
+﻿@page 
 @model YearGroupsModel
 @{
-    ViewData["Title"] = "Year Groups page";
+    ViewData["Title"] = "Year Groups";
 }
 
 @section Scripts{
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div id="pupilsContainer" style="        display: none" class="container">
-        <h2>Pupils</h2>
+        <h2 id="pupil-title">Pupils</h2>
         <br />
         <div id="pupils" class="row">
             <table class="table pupilTable">
@@ -42,9 +42,9 @@
                         <th data-sortable="true" data-field="formTeacher">Teacher</th>
                         <th data-sortable="true" data-field="monthsOld">Months Old</th>
                         <th data-sortable="true" data-field="endOfLastYearStatus">End of Last Year</th>
-                        <th data-sortable="true" data-field="autumnStatus" data-formatter="yearGroups.objectivesDropdown">Summer</th>
-                        <th data-sortable="true" data-field="springStatus" data-formatter="yearGroups.objectivesDropdown">Spring</th>
-                        <th data-sortable="true" data-field="summerStatus" data-formatter="yearGroups.objectivesDropdown">Summer</th>
+                        <th data-sortable="true" data-field="autumnStatus">Summer</th>
+                        <th data-sortable="true" data-field="springStatus">Spring</th>
+                        <th data-sortable="true" data-field="summerStatus">Summer</th>
                     </tr>
                 </thead>
             </table>

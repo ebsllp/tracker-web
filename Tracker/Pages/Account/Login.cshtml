@@ -1,0 +1,35 @@
+﻿@page 
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+@section Scripts{
+    <script>
+        function Login() {
+            $.ajax({
+                url: '/Account/Login?handler=Login',
+                data: {Email: $("#txtEmail").val(), Pwd: $("#txtPwd").val()}
+            }).done(function (result) {
+                if (result) window.location.replace("../Index");
+            });
+        }
+    </script>
+
+}
+<div class="container col-lg-12" style="        text-align: center">
+    <div id="loginContainer" class="container">
+        <h2>Login</h2>
+        <div class="row col-lg-12" style="padding:5px;">
+            <label for="txtEmail" style="display:inline-block;width:100px;">User Email:</label><input id="txtEmail" type="text" class="form-control" style="width:250px;display:inline-block" />
+        </div>
+        <div class="row col-lg-12" style="padding:5px;">
+            <label for="txtPwd" style="display:inline-block;width:100px;">Password:</label><input id="txtPwd" type="password" class="form-control" style="width:250px;display:inline-block" />
+        </div>
+        <div class="row col-lg-12" style="padding:20px;">
+            <input type="button" class="btn btn-primary" value="Login" style="width:250px" onclick="Login()" />
+        </div>
+        <div class="row col-lg-12" style="padding:20px;">
+            <span class="error" style="color:red"></span>
+        </div>
+    </div>
+</div>

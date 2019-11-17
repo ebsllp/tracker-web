@@ -2,6 +2,7 @@
 let yearGroupCode = '';
 let subjectId = 0;
 let classId = 0;
+let subject = '';
 let objectives = [];
 
 $(function () {
@@ -44,16 +45,18 @@ var yearGroups = {
             $("#yearGroupContainer").hide();
             $("#subjects tbody").html("");
             while (i < l) {
-                $("#subjects tbody").append("<tr><td><input type='button' onclick='yearGroups.loadPupils(" + result[i].subjectId + ")' value='" + result[i].displayName + "' class='subjectButtons btn btn-primary selectButtons' /></td></tr>");
+                $("#subjects tbody").append("<tr><td><input type='button' id='" + result[i].subjectId + "' code='" + result[i].displayName  + "' onclick='yearGroups.loadPupils(this)' value='" + result[i].displayName + "' class='subjectButtons btn btn-primary selectButtons' /></td></tr>");
                 i++;
             }
             $("#subjects tbody").append("<tr><td><input type='button' value='Back' onclick='yearGroups.loadYearGroups()' class='subjectButtons btn btn-warning selectButtons' /></td></tr>");
             $("#subjectContainer").show();
         });
     },
-    loadPupils: function (_subjectId) {
-        subjectId = _subjectId;
+    loadPupils: function (row) {
+        subjectId = $(row).attr("id");
+        subject = $(row).attr("code");
 
+        $("#pupil-title").html('Year Group: ' + yearGroupCode + ', Subject: ' + subject);
         $.ajax({
             url: '/YearGroups?handler=ClassId',
             data: {

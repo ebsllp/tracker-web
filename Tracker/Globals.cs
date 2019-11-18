@@ -23,23 +23,12 @@ namespace Tracker
         public static Data.SchooldDb SchoolDatabase { get; internal set; }
         public static void ConfigureMasterDatabase()
         {
-            MasterDatabase = new Data.MasterDb(ServerName, MasterDatabaseName);           
+            MasterDatabase = new Data.MasterDb(ServerName, MasterDatabaseName);
         }
-        public async static Task<bool> ConfigureSchoolDatabase(string Email, string Pwd)
+        public static void ConfigureSchoolDatabase(string _ServerName, string _DatabaseName)
         {
-            bool Success = false;
-
-            var dt = await MasterDatabase.UserSelect(Email, Pwd);
-            if (dt.Rows.Count > 0)
-            {
-                string SchoolServerName = dt.Rows[0]["ServerName"].ToString();
-                string SchoolDatabaseName = dt.Rows[0]["DatabaseName"].ToString();
-                if (SchoolServerName.Length == 0) SchoolServerName = ServerName;
-
-                SchoolDatabase = new Data.SchooldDb(SchoolServerName, SchoolDatabaseName);
-                Success = true;
-            }
-            return Success;
+            if (_ServerName.Length == 0) _ServerName = ServerName;
+            SchoolDatabase = new Data.SchooldDb(_ServerName, _DatabaseName);
         }
     }
 }

@@ -13,11 +13,10 @@ namespace Tracker.Data
         {
 
         }
-        public async Task<DataTable> UserSelect(string Email, string Pwd)
+        public async Task<DataTable> UserSelect(string Email)
         {
             List<SqlParameter> pars = new List<SqlParameter>();
             pars.Add(new SqlParameter("Email", Email));
-            pars.Add(new SqlParameter("Pwd", Pwd));
             return await Select("sp_User_Select", pars.ToArray());
         }
     }

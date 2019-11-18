@@ -1,4 +1,5 @@
-﻿@page 
+﻿@page
+
 @model LoginModel
 @{
     ViewData["Title"] = "Login";
@@ -6,14 +7,28 @@
 @section Scripts{
     <script>
         function Login() {
-            $.ajax({
-                url: '/Account/Login?handler=Login',
-                data: {Email: $("#txtEmail").val(), Pwd: $("#txtPwd").val()}
-            }).done(function (result) {
-                if (result) window.location.replace("../Index");
-            });
+            let email = $("#txtEmail").val();
+            let pwd = $("#txtPwd").val();
+
+            if (email.length == 0 || pwd.length == 0) {
+                $(".error").html("User ID or Password not entered");
+            }
+            else {
+                $.ajax({
+                    url: '/Account/Login?handler=Login',
+                    data: { Email: email, Pwd: pwd }
+                }).done(function (result) {
+                    if (result) {
+                        window.location.replace("../Index");
+                    }
+                    else {
+                        $(".error").html("User ID or Password not recognized");
+                    }
+                });
+            }
         }
-    </script>
+
+/**/</script>
 
 }
 <div class="container col-lg-12" style="        text-align: center">

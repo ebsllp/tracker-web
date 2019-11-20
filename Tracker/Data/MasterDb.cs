@@ -13,11 +13,11 @@ namespace Tracker.Data
         {
 
         }
-        public async Task<DataTable> UserSelect(string Email)
+        public async Task<DataTable> SchoolSelect(string Email)
         {
             List<SqlParameter> pars = new List<SqlParameter>();
             pars.Add(new SqlParameter("Email", Email));
-            return await Select("sp_User_Select", pars.ToArray());
+            return await Select("sp_School_Select", pars.ToArray());
         }
     }
 }

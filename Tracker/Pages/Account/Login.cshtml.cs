@@ -13,13 +13,17 @@ namespace Tracker.Pages
         public string Email { get; set; }
         public async Task<JsonResult> OnGetLogin(string Email, string Pwd)
         {
-            var user = new User();
-            var u = await user.LoadUser(Email);
+            var s = new BLL_School();
+            var u = new BLL_User();
+            var school = await s.LoadSchool(Email);
 
-            if (u.UserId > 0) {
-                var auth = user.HashPassword(Pwd, u.Salt);
+            if (school.SchoolName.Length > 0) {
+                Globals.ConfigureSchoolDatabase(school.ServerName, school.DatabaseName);
 
-                if (auth == u.Pwd)
+                var user = await u.LoadUser(Email);
+                var auth = u.HashPassword(Pwd, user.Salt);
+
+                if (auth == user.Pwd)
                 {
                     var identity = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, Email)

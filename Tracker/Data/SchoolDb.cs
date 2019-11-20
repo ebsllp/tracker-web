@@ -12,6 +12,12 @@ namespace Tracker.Data
         {
 
         }
+        public async Task<DataTable> UserSelect(string Email)
+        {
+            List<SqlParameter> pars = new List<SqlParameter>();
+            pars.Add(new SqlParameter("Email", Email));
+            return await Select("sp_User_Select", pars.ToArray());
+        }
         public async Task<DataTable> YearGroups()
         {
             return await Select("sp_YearGroup_Select");

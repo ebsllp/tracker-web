@@ -5,7 +5,6 @@ C:\apps\Tracker\Tracker\Tracker\bin\Debug\netcoreapp2.1\Tracker.dll
 C:\apps\Tracker\Tracker\Tracker\bin\Debug\netcoreapp2.1\Tracker.pdb
 C:\apps\Tracker\Tracker\Tracker\bin\Debug\netcoreapp2.1\Tracker.Views.dll
 C:\apps\Tracker\Tracker\Tracker\bin\Debug\netcoreapp2.1\Tracker.Views.pdb
-C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.csprojAssemblyReference.cache
 C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.csproj.CoreCompileInputs.cache
 C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.RazorAssemblyInfo.cache
 C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.RazorAssemblyInfo.cs

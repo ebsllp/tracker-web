@@ -31,3 +31,4 @@ C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.dll
 C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.pdb
 C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.csproj.CopyComplete
 C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Razor\Pages\Account\Login.g.cshtml.cs
+C:\apps\Tracker\Tracker\Tracker\obj\Debug\netcoreapp2.1\Tracker.csprojAssemblyReference.cache

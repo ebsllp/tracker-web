@@ -13,37 +13,37 @@ namespace Tracker.Pages
         public string Email { get; set; }
         public async Task<JsonResult> OnGetLogin(string Email, string Pwd)
         {
+            var result = new JsonResult(false);
             var s = new BLL_School();
             var u = new BLL_User();
             var school = await s.LoadSchool(Email);
 
-            if (school.SchoolName.Length > 0) {
+            if (school.SchoolName != null && school.SchoolName.Length > 0)
+            {
                 Globals.ConfigureSchoolDatabase(school.ServerName, school.DatabaseName);
 
-                var user = await u.LoadUser(Email);
-                var auth = u.HashPassword(Pwd, user.Salt);
+                string encryptedEmail = Security.Encrypt(Email);
+                var user = await u.LoadUser(encryptedEmail);
 
-                if (auth == user.Pwd)
+                if (user.UserId > 0)
                 {
-                    var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, Email)
-                }, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var auth = Security.HashWithSalt(Pwd, user.Salt);
 
-                    var principal = new ClaimsPrincipal(identity);
+                    if (auth == user.Pwd)
+                    {
+                        var identity = new ClaimsIdentity(new[] {
+                                new Claim(ClaimTypes.Name, Email)
+                            }, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                        var principal = new ClaimsPrincipal(identity);
 
-                    return new JsonResult(true);
-                }
-                else
-                {
-                    return new JsonResult(false);
+                        var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                        result = new JsonResult(true);
+                    }
                 }
             }
-            else
-            {
-                return new JsonResult(false);
-            }
+            return result;
         }
     }
 }

@@ -11,6 +11,7 @@
     .objectives {
         width: 150px;
     }
+    .hide-col{display:none;}
 </style>
 <div class="container col-lg-12" style="        text-align: center">
     <div id="yearGroupContainer" style="        display: none" class="container">
@@ -31,6 +32,15 @@
             </table>
         </div>
     </div>
+    <div id="termContainer" style="        display: none" class="container">
+        <h2>Select Term</h2>
+        <br />
+        <div id="terms" class="row">
+            <table class="table termTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
     <div id="pupilsContainer" style="        display: none" class="container">
         <h2 id="pupil-title">Pupils</h2>
         <br />
@@ -42,9 +52,12 @@
                         <th data-sortable="true" data-field="formTeacher">Teacher</th>
                         <th data-sortable="true" data-field="monthsOld">Months Old</th>
                         <th data-sortable="true" data-field="endOfLastYearStatus">End of Last Year</th>
-                        <th data-sortable="true" data-field="autumnStatus">Summer</th>
-                        <th data-sortable="true" data-field="springStatus">Spring</th>
-                        <th data-sortable="true" data-field="summerStatus">Summer</th>
+                        <th data-sortable="true" data-field="autumnStatus" data-class="AUT hide-col">Summer</th>
+                        <th data-sortable="true" data-field="autumnHalfTermStatus" data-class="AUT2 hide-col">Summer Half</th>
+                        <th data-sortable="true" data-field="springStatus" data-class="SPR hide-col">Spring</th>
+                        <th data-sortable="true" data-field="springHalfTermStatus" data-class="SPR2 hide-col">Spring Half</th>
+                        <th data-sortable="true" data-field="summerStatus" data-class="SUM hide-col">Summer</th>
+                        <th data-sortable="true" data-field="summerHalfTermStatus" data-class="SUM2 hide-col">Summer Half</th>
                     </tr>
                 </thead>
             </table>

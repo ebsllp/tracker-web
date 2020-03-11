@@ -32,34 +32,20 @@ GO
 USE [Weston]
 GO
 
-CREATE TABLE [dbo].[Users](
-	[OID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[DisplayName] [nvarchar](50) NULL,
-	[EMailAddress] [nvarchar](100) NULL,
-	[Salt] [nchar](100) NULL,
-	[LoginId] [nvarchar](50) NULL,
-	[LoginPassword] [varbinary](max) NULL,
-	[LoginChangePassword] [bit] NULL,
-	[LoginDisabled] [bit] NULL,
-	[IsAdministrator] [bit] NULL,
-	[DefaultTeacher] [int] NULL,
-	[CreatedOn] [datetime] NULL,
-	[ModifiedOn] [datetime] NULL,
-	[OptimisticLockField] [int] NULL,
-	[GCRecord] [int] NULL,
- CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[WebUsers](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[Email] [varchar](150) NOT NULL,
+	[Pwd] [varchar](200) NOT NULL,
+	[Salt] [varchar](200) NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+ CONSTRAINT [PK_WebUsers] PRIMARY KEY CLUSTERED 
 (
-	[OID] ASC
+	[UserId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Users]  WITH NOCHECK ADD  CONSTRAINT [FK_Users_DefaultTeacher] FOREIGN KEY([DefaultTeacher])
-REFERENCES [dbo].[Teachers] ([OID])
-NOT FOR REPLICATION 
-GO
-
-ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_DefaultTeacher]
+ALTER TABLE [dbo].[WebUsers] ADD  CONSTRAINT [DF_WebUsers_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
 GO
 
 CREATE PROCEDURE [dbo].[sp_Class_Select]
